@@ -3,7 +3,7 @@
 
 function ValidaCPF(cpf) {
   // Retira os pontos e o hífen da String cpf
-  Object.defineProperty(this, 'cpfSemDig', {
+  Object.defineProperty(this, 'cpfLimpo', {
     enumerable: true,
     get: function () {
       return cpf.replace(/\D+/g, '')
@@ -13,16 +13,16 @@ function ValidaCPF(cpf) {
 
 // Função que verifica se o CPF é válido ou não
 ValidaCPF.prototype.valida = function () {
-  if (typeof this.cpfSemDig === 'undefined') return false
-  if (this.cpfSemDig.length !== 11) return false
+  if (typeof this.cpfLimpo === 'undefined') return false
+  if (this.cpfLimpo.length !== 11) return false
   if (this.isSequencia()) return false
 
-  const cpfParcial = this.cpfSemDig.slice(0, -2)
+  const cpfParcial = this.cpfLimpo.slice(0, -2)
   const digito1 = this.calculaDigito(cpfParcial)
   const digito2 = this.calculaDigito(cpfParcial + digito1)
 
   const cpfValidado = cpfParcial + digito1 + digito2
-  return cpfValidado === this.cpfSemDig
+  return cpfValidado === this.cpfLimpo
 }
 
 // Calcula o 10 e o 11 dígito do CPF usando o algoritmo estabelecido pelo Governo Federal
@@ -42,6 +42,6 @@ ValidaCPF.prototype.calculaDigito = function (cpfParcial) {
 
 // Verifica se o CPF passado pelo usuário é uma sequência de números iguais
 ValidaCPF.prototype.isSequencia = function () {
-  const sequencia = this.cpfSemDig[0].repeat(this.cpfSemDig.length)
-  return sequencia === this.cpfSemDig
+  const sequencia = this.cpfLimpo[0].repeat(this.cpfLimpo.length)
+  return sequencia === this.cpfLimpo
 }
