@@ -4,12 +4,15 @@ class ValidaFormulario {
     this.eventos()
   }
 
+  // Método que captura o submit do usuário
   eventos() {
     this.formulario.addEventListener('submit', e => {
       this.handleSubmit(e)
     })
   }
 
+  // Método responsável por verificar se todos os campos e senhas são validos
+  // e enviar o submit
   handleSubmit(e) {
     e.preventDefault()
     const camposValidos = this.camposSaoValidos()
@@ -21,6 +24,9 @@ class ValidaFormulario {
     }
   }
 
+  // Esse método faz a verificação se as senhas passadas pelo usuário seguem
+  // o padrão estabelecido pelo form e retorna verdadeiro(Está tudo correto) ou
+  // falso(Alguma senha apresenta problema).
   senhasSaoValidas() {
     let valid = true
 
@@ -44,6 +50,9 @@ class ValidaFormulario {
     return valid
   }
 
+  // Esse método faz a verificação se os campos passados pelo usuário seguem
+  // o padrão estabelecido pelo form e retorna verdadeiro(Está tudo correto) ou
+  // falso(Algum campo apresenta problema).
   camposSaoValidos() {
     let valid = true
 
@@ -71,6 +80,9 @@ class ValidaFormulario {
     return valid
   }
 
+  // Esse método faz a verificação se o usuário passado segue
+  // o padrão estabelecido pelo form e retorna verdadeiro(Usuário Correto) ou
+  // falso(Usuário Incorreto).
   validaUsuario(campo) {
     const usuario = campo.value
     let valid = true
@@ -91,6 +103,10 @@ class ValidaFormulario {
     return valid
   }
 
+  // Esse método faz a verificação se o CPF passado é válido.
+  // É utilizado uma função construtora em outro arquivo JS que faz cálculo e
+  // validação do CPF passado pelo usuário.
+  // Retorna verdadeiro(CPF Correto) ou falso(CPF Incorreto).
   validaCPF(campo) {
     const cpf = new ValidaCPF(campo.value)
 
@@ -102,6 +118,10 @@ class ValidaFormulario {
     return true
   }
 
+  // Esse método cria as mensagens de erro que serão exibidas no site caso
+  // o usuário digite algum campo ou senha errados.
+  // O método recebe o campo digitado incorretamente e a mensagem que deve
+  // ser exibida no site.
   criaErro(campo, msg) {
     const div = document.createElement('div')
     div.innerHTML = msg
